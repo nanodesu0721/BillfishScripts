@@ -7,7 +7,6 @@ import time
 root = '素材库目录'
 os.chdir(root)
 db_path = r".bf\billfish.db"
-pid_undeal = 4
 
 def sanitize_folder_name(folder_name):
       # 替换不允许的字符
@@ -23,6 +22,8 @@ def sanitize_folder_name(folder_name):
 
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
+cursor.execute(f"select id from bf_folder where name='待处理';")
+pid_undeal = cursor.fetchall()[0][0]
 cursor.execute(f"select id, name from bf_file where pid={pid_undeal};")
 results = cursor.fetchall()
 for img in results:
