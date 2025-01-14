@@ -28,7 +28,12 @@ cursor.execute(f"select id, name from bf_file where pid={pid_undeal};")
 results = cursor.fetchall()
 for img in results:
     cursor.execute(f"select note from bf_material_userdata where file_id={img[0]};")
-    result = cursor.fetchall()[0][0]
+    result = cursor.fetchall()
+    if len(result) > 0:
+        result_ = result[0][0]
+        match = re.search(r"Artist:(.+)", result_)
+    else:
+        match = None  
     match = re.search(r"Artist:(.+)", result)
     if not match:
         print('Cant deal', img[1])
