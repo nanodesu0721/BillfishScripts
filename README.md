@@ -14,5 +14,5 @@ jpeg优化
 ```
 png->webp
 ```powershell
-Get-ChildItem -Filter *.png | ForEach-Object -Parallel { cwebp -preset drawing -lossless -z 9 -m 6 -q 100 -mt -v "$_" -o "$($_.Basename).webp"} -ThrottleLimit 16
+Get-ChildItem -Filter *.png | ForEach-Object -Parallel { cwebp -z 9 -v "$_" -o "$($_.Directory)\$($_.Basename).webp" } -ThrottleLimit 16
 ```
